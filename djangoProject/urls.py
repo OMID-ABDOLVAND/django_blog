@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from blog.views import signup_view
 
 urlpatterns = [
 
@@ -26,6 +27,8 @@ urlpatterns = [
     # path('<int:year>/<int:month>/<int:day>/<str:slug>', detail_view),
     path('blog/', include(('blog.url', 'blog'), namespace='blog')),
     path('form/', include(('form.urls', 'form'), namespace='form')),
+    path('account/', include('django.contrib.auth.urls')),
+    path('x', signup_view),
 
 ]
 

@@ -1,14 +1,16 @@
 from django.views import View
 from django.views.generic import ListView, DetailView
 
+import blog
+
 from .forms import ShareForm
 from .models import Post, Comment
 from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
-
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 # Create your views here.
 
 # def main_page(request):
@@ -68,3 +70,17 @@ class SharePost(View):
             return redirect(post.get_absolute_url())
         else:
             return render(request, 'blog_t/share.html', {'post': post, 'form': form})
+
+
+def signup_view(request):
+    if request.method == 'GET':
+        form = UserCreationForm()
+        return render(request, 'registration/login.html', {'form': form })
+    else:
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/blog')
+        else:
+            return render(request, 'registration/login.html', {'form': form })

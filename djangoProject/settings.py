@@ -161,3 +161,6 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ],
+
+LOGIN_REDIRECT_URL = '/blog'
+LOGIN_URL = '/blog'
